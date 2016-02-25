@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection'])
+angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TKServicesModule'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -42,6 +42,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection'])
     })
     .state('lobby', {
       url: '/lobby',
-      templateUrl: 'templates/lobby.html'
+      templateUrl: 'templates/lobby.html',
+      controller: 'LobbyCtrl'
+    })
+    .state('test', {
+      abstract: true,
+      url: '/test',
+      template: '<ion-nav-view></ion-nav-view>'
+    })
+    .state('test.detail', {
+      url: '/question:testID',
+      templateUrl: 'templates/question.html',
+      controller: 'TestCtrl',
+      resolve: {
+        testInfo: function($stateParams, TKQuestionsService) {
+          return TKQuestionsService.getQuestion($stateParams.testID);
+        }
+      }
+    })
+    .state('results', {
+      url: '/results',
+      templateUrl: 'templates/results.html'
     });
 });

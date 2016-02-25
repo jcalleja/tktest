@@ -1,4 +1,15 @@
 <ion-view view-title="Menu">
+    <ion-nav-buttons side="left">
+        <button class="button" ng-click="logout()">
+            <i class="icon ion-log-out light"></i>
+        </button>
+    </ion-nav-buttons>
     <ion-content class="padding">
+        <button class="button button-block button-positive" ng-click="takeTestButtonTapped()">
+            Take Test
+        </button>
+        <button class="button button-block button-positive">
+            My Results
+        </button>
     </ion-content>
 </ion-view>

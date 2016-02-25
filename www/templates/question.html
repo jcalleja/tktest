@@ -1,0 +1,32 @@
+<ion-view view-title="{{title}}">
+    <ion-content class="padding">
+        <div class="card">
+            <div class="item item-divider">
+                Option A
+            </div>
+            <div class="item item-text-wrap">
+                {{questionA.Text}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider">
+                Option B
+            </div>
+            <div class="item item-text-wrap">
+                {{questionB.Text}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="button button-block button-positive" ng-click="buttonClicked('A')">
+                    A
+                </button>
+            </div>
+            <div class="col">
+                <button class="button button-block button-positive" ng-click="buttonClicked('B')">
+                    B
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
