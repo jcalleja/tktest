@@ -1,1 +1,9 @@
 /* Empty. Add your own CSS if you like */
+
+.item-input {
+    margin: 5px 0px;
+}
+
+.has-errors {
+    border: 1px solid red;
+}
