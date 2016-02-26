@@ -1,9 +1,11 @@
 <ion-view view-title="Results">
+    <ion-nav-buttons side="primary">
+        <button class="button" ng-click="menuButtonTapped()">
+            Menu
+        </button>
+    </ion-nav-buttons>
     <ion-content class="padding">
-        <ion-nav-buttons side="primary">
-            <button class="button" ui-sref="lobby">
-                Menu
-            </button>
-        </ion-nav-buttons>
+        <h1>Results</h1>
+        <canvas id="bar" class="chart chart-bar" data="data" labels="labels" options="options" height="300" colours="colours"></canvas>
     </ion-content>
 </ion-view>
