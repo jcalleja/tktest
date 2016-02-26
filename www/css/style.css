@@ -11,3 +11,7 @@
 .no-border {
     border-width: 0px;
 }
+
+.padding {
+    margin-bottom: 10px;
+}

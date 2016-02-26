@@ -35,7 +35,7 @@ angular.module('TKServicesModule', [])
         service.saveAnswer = function(questionNumber, answerCategory, option) {
             answerCategories[answerCategory.toLowerCase()]++;
             answers[questionNumber] = option;
-            categoriesStack.push(answerCategories);
+            categoriesStack.push(answerCategory);
         };
         service.getAnswers = function() {
             return answerCategories;
