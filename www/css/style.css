@@ -7,3 +7,7 @@
 .has-errors {
     border: 1px solid red;
 }
+
+.no-border {
+    border-width: 0px;
+}

@@ -1,6 +1,24 @@
 angular.module('starter.controllers', [])
     .controller('LoginCtrl', ['$scope', '$state', 'UserService', '$ionicHistory', '$window', function($scope, $state, UserService, $ionicHistory, $window) {
         $scope.user = {};
+
+        var rememberMeValue;
+        if ($window.localStorage["rememberMe"] === undefined ||
+            $window.localStorage["rememberMe"] == "true") {
+            rememberMeValue = true;
+        }
+        else {
+            rememberMeValue = false;
+        }
+
+        $scope.checkbox = {
+            rememberMe: rememberMeValue
+        };
+
+        if ($window.localStorage["username"] !== undefined && rememberMeValue === true) {
+            $scope.user.email = $window.localStorage["username"];
+        }
+
         $scope.loginSubmitForm = function(form) {
             if (form.$valid) {
                 UserService.login($scope.user)
@@ -15,6 +33,16 @@ angular.module('starter.controllers', [])
                                 disableBack: true
                             });
                             $state.go('lobby');
+                            $window.localStorage["rememberMe"] = $scope.checkbox.rememberMe;
+                            if ($scope.checkbox.rememberMe) {
+                                $window.localStorage["username"] = $scope.user.email;
+                            }
+                            else {
+                                delete $window.localStorage["username"];
+                                $scope.user.email = "";
+                            }
+                            $scope.user.password = "";
+                            form.$setPristine();
                         }
                         else {
                             // invalid response
@@ -40,6 +68,16 @@ angular.module('starter.controllers', [])
 .controller('RegisterCtrl', ['$scope', '$state', 'UserService', '$ionicHistory', '$window', function($scope, $state, UserService, $ionicHistory, $window) {
     $scope.user = {};
     $scope.repeatPassword = {};
+
+    function resetFields() {
+        $scope.user.email = "";
+        $scope.user.firstName = "";
+        $scope.user.lastName = "";
+        $scope.user.organization = "";
+        $scope.user.password = "";
+        $scope.repeatPassword.password = "";
+    }
+
     $scope.registerSubmitForm = function(form) {
         if (form.$valid) {
             if ($scope.user.password != $scope.repeatPassword.password) {
@@ -50,12 +88,7 @@ angular.module('starter.controllers', [])
                     .then(function(response) {
                         if (response.status === 200) {
                             loginAfterRegister();
-                            console.log(response);
-                            $ionicHistory.nextViewOptions({
-                                historyRoot: true,
-                                disableBack: true
-                            });
-                            $state.go('lobby');
+                            form.$setPristine();
                         }
                         else {
                             // invalid response
@@ -68,7 +101,7 @@ angular.module('starter.controllers', [])
                         }
                         else if (response.status === 422) {
                             // invalid sresponse
-                            alert("Email has already been registered. User different email, or log in.");
+                            alert("Email has already been registered. Use a different email, or log in.");
                         }
                         else if (response.data === null) {
                             //If the data is null, it means there is no internet connection.
@@ -100,17 +133,21 @@ angular.module('starter.controllers', [])
                     // invalid response
                     $state.go('landing');
                 }
+                resetFields();
             }, function(response) {
                 // something went wrong
                 console.log(response);
                 $state.go('landing');
+                resetFields();
             });
     }
 }])
 
-.controller('LobbyCtrl', ['$scope', '$state', '$ionicHistory', 'UserService', '$window', 'ServerQuestionService', 'TKQuestionsService',
-    function($scope, $state, $ionicHistory, UserService, $window, ServerQuestionService, TKQuestionsService) {
+.controller('LobbyCtrl', ['$scope', '$state', '$ionicHistory', 'UserService', '$window', 'ServerQuestionService', 'TKQuestionsService', 'TKAnswersService',
+    function($scope, $state, $ionicHistory, UserService, $window, ServerQuestionService, TKQuestionsService, TKAnswersService) {
         //Get Questions Initially if they are not already stored
+        TKAnswersService.resetAnswers();
+
         if (TKQuestionsService.questionsLength() === 0) {
             getQuestions();
         }
@@ -170,8 +207,8 @@ angular.module('starter.controllers', [])
     }
 ])
 
-.controller('TestCtrl', ['$scope', 'testInfo', '$stateParams', '$state', '$window', 'TKQuestionsService', 'TKAnswersService', 'ServerAnswersService', '$ionicHistory',
-    function($scope, testInfo, $stateParams, $state, $window, TKQuestionsService, TKAnswersService, ServerAnswersService, $ionicHistory) {
+.controller('TestCtrl', ['$scope', 'testInfo', '$stateParams', '$state', '$window', 'TKQuestionsService', 'TKAnswersService', 'ServerAnswersService', '$ionicHistory', 'TKResultsButtonService',
+    function($scope, testInfo, $stateParams, $state, $window, TKQuestionsService, TKAnswersService, ServerAnswersService, $ionicHistory, TKResultsButtonService) {
         //testInfo is passed in the router to obtain the questions
         var qNumber = $stateParams.testID;
         $scope.title = "Question #" + qNumber;
@@ -197,10 +234,14 @@ angular.module('starter.controllers', [])
         };
 
         function performRequest() {
-            var answersDict = TKAnswersService.getAnswers();
+            var answersDict = angular.copy(TKAnswersService.getAnswers());
+
             answersDict["userID"] = $window.localStorage['userID'];
+
             var date = new Date();
+
             answersDict["createDate"] = date.toUTCString();
+
             ServerAnswersService.create(answersDict, $window.localStorage['token'])
                 .then(function(response) {
                     if (response.status === 200) {
@@ -208,6 +249,7 @@ angular.module('starter.controllers', [])
                             disableBack: true
                         });
                         $state.go('results');
+                        TKResultsButtonService.setShouldShowMenuButton(true);
                     }
                     else {
                         // invalid response
@@ -229,15 +271,25 @@ angular.module('starter.controllers', [])
                     disableBack: true
                 });
                 $state.go('results');
+                TKResultsButtonService.setShouldShowMenuButton(true);
             }
         }
+
+        $scope.$on("$ionicView.beforeEnter", function() {
+            var lastQuestionNumber = TKAnswersService.getLastQuestionNumber();
+            if (parseInt(qNumber) < lastQuestionNumber) {
+                TKAnswersService.setLastQuestionNumber(lastQuestionNumber - 1);
+                TKAnswersService.eraseLastAnswer();
+            }
+            TKAnswersService.setLastQuestionNumber(parseInt(qNumber));
+        });
     }
 ])
 
-.controller('ResultsCtrl', ['$scope', 'TKAnswersService', '$ionicHistory', '$state',
-    function($scope, TKAnswersService, $ionicHistory, $state) {
+.controller('ResultsCtrl', ['$scope', 'TKAnswersService', '$ionicHistory', '$state', 'TKResultsButtonService',
+    function($scope, TKAnswersService, $ionicHistory, $state, TKResultsButtonService) {
         var answersInfo = TKAnswersService.getAnswers();
-        
+
         function returnPercentage(value) {
             return (value / 12) * 100;
         }
@@ -250,7 +302,7 @@ angular.module('starter.controllers', [])
             $state.go('lobby');
         };
 
-
+        $scope.shouldShowButton = TKResultsButtonService.getShouldShowMenuButton();
 
         $scope.data = [
             [returnPercentage(answersInfo["competing"]), returnPercentage(answersInfo["collaborating"]),
@@ -287,5 +339,50 @@ angular.module('starter.controllers', [])
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,0.8)"
         }];
+    }
+])
+
+.controller('HistoryCtrl', ['$scope', 'ServerAnswersService', '$window', '$state', 'TKAnswersService', 'TKResultsButtonService',
+    function($scope, ServerAnswersService, $window, $state, TKAnswersService, TKResultsButtonService) {
+        $scope.tests = [];
+        performRequest();
+        $scope.goToResult = function(test) {
+            var answers = {
+                "competing": test.competing,
+                "collaborating": test.collaborating,
+                "compromising": test.compromising,
+                "avoiding": test.avoiding,
+                "accommodating": test.accommodating
+            };
+            TKAnswersService.setAnswers(answers);
+            TKResultsButtonService.setShouldShowMenuButton(false);
+            $state.go('results');
+        };
+
+        function performRequest() {
+            ServerAnswersService.all($window.localStorage['userID'],
+                    $window.localStorage['token'])
+                .then(function(response) {
+                    if (response.status === 200) {
+                        $scope.tests = response.data;
+                    }
+                    else {
+                        //invalid
+                        confirmPrompt();
+                    }
+                }, function(response) {
+                    //something went wrong
+                    console.log(response);
+                    confirmPrompt();
+
+                });
+        }
+
+        function confirmPrompt() {
+            var response = confirm("The tests could not be retrieved at the momemt. Do you want to try again?");
+            if (response == true) {
+                performRequest();
+            }
+        }
     }
 ]);

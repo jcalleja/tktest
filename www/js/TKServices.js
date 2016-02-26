@@ -22,6 +22,8 @@ angular.module('TKServicesModule', [])
     })
     .service('TKAnswersService', function() {
         var service = this;
+        var lastQuestionNumber = 0;
+        var categoriesStack = [];
         var answerCategories = {
             "competing": 0,
             "collaborating": 0,
@@ -33,8 +35,43 @@ angular.module('TKServicesModule', [])
         service.saveAnswer = function(questionNumber, answerCategory, option) {
             answerCategories[answerCategory.toLowerCase()]++;
             answers[questionNumber] = option;
+            categoriesStack.push(answerCategories);
         };
         service.getAnswers = function() {
             return answerCategories;
         };
-    });
+        service.setAnswers = function(answers) {
+            answerCategories = answers;
+        };
+        service.resetAnswers = function() {
+            for (var property in answerCategories) {
+                if (answerCategories.hasOwnProperty(property)) {
+                    answerCategories[property] = 0;
+                }
+            }
+            lastQuestionNumber = 0;
+        };
+        service.setLastQuestionNumber = function(qNumber) {
+            lastQuestionNumber = qNumber;
+        };
+        service.getLastQuestionNumber = function() {
+            return lastQuestionNumber;
+        };
+        service.eraseLastAnswer = function() {
+            answerCategories[categoriesStack.pop().toLowerCase()]--;
+        };
+    })
+
+.service('TKResultsButtonService', function() {
+    var service = this;
+
+    var shouldShowButton = false;
+
+    service.setShouldShowMenuButton = function(show) {
+        shouldShowButton = show;
+    };
+
+    service.getShouldShowMenuButton = function() {
+        return shouldShowButton;
+    };
+});

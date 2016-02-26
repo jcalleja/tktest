@@ -49,6 +49,7 @@ angular.module('RESTConnection', [])
     function getUrl() {
       return ENDPOINT_URL + path;
     }
+
     service.create = function(answer, token) {
       return $http({
         url: getUrl(),
@@ -56,6 +57,14 @@ angular.module('RESTConnection', [])
         data: JSON.stringify(answer),
         headers: {
           'Authorization': token
+        }
+      });
+    };
+
+    service.all = function(userID, token) {
+      return $http.get(getUrl() + "?filter[where][userID]=" + userID, {
+        params: {
+          access_token: token
         }
       });
     };
