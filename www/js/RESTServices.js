@@ -67,5 +67,10 @@ angular.module('RESTConnection', [])
           access_token: token
         }
       });
+    }
+
+    service.login = function(user) {
+      user["ttl"] = 1209600000;
+      return $http.post(getUrl() + "login", user);
     };
   }]);

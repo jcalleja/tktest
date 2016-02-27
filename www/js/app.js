@@ -3,25 +3,51 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TKServicesModule', 'chart.js'])
+angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TKServicesModule', 'chart.js', 'SSFAlerts'])
 
-.run(function($ionicPlatform) {
+.run(["$ionicPlatform", "$window", "$state", function($ionicPlatform, $window, $state) {
   $ionicPlatform.ready(function() {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
     }
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+    if ($window.localStorage["userID"] !== undefined) {
+      $ionicHistory.nextViewOptions({
+        historyRoot: true,
+        disableBack: true
+      });
+      $state.go("lobby");
+    }
   });
-})
+}])
+
+.run(["$rootScope", "$ionicLoading", function($rootScope, $ionicLoading) {
+  $rootScope.$on('loading:show', function() {
+    $ionicLoading.show({
+      template: '<ion-spinner></ion-spinner>'
+    });
+  });
+  $rootScope.$on('loading:hide', function() {
+    $ionicLoading.hide();
+  });
+}])
+
+.run(["$rootScope", "$ionicHistory", "$state", "$window", function($rootScope, $ionicHistory, $state, $window) {
+  $rootScope.$on('request:auth', function() {
+    $ionicHistory.nextViewOptions({
+      historyRoot: true,
+      disableBack: true
+    });
+    delete $window.localStorage['token'];
+    delete $window.localStorage['userID'];
+    $state.go('landing');
+  });
+}])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -71,4 +97,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TK
       templateUrl: 'templates/history.html',
       controller: 'HistoryCtrl'
     });
-});
+})
+
+.config(['$httpProvider', function($httpProvider) {
+  $httpProvider.interceptors.push(function($rootScope) {
+    return {
+      request: function(config) {
+        $rootScope.$broadcast('loading:show');
+        return config;
+      },
+      response: function(response) {
+        $rootScope.$broadcast('loading:hide');
+        return response;
+      },
+      requestError: function(reason) {
+        $rootScope.$broadcast('loading:hide');
+        return reason;
+      },
+      responseError: function(response) {
+        $rootScope.$broadcast('loading:hide');
+        if (response.status === 401 && (response.data.error.code === "INVALID_TOKEN" || response.data.error.code === "AUTHORIZATION_REQUIRED")) {
+          $rootScope.$broadcast('request:auth');
+        }
+        return response;
+      }
+    };
+  });
+}]);
