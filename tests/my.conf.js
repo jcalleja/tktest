@@ -15,7 +15,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      '../ww/lib/ionic/js/ionic.bundle.js',
+        '../www/js/*.js',
+        '../lib/angular-mocks/angular-mocks.js',
+        '**/*tests.js'
     ],
+    
+    // Use the PhantomJS browser instead of Chrome
+    browsers: ['PhantomJS'],
 
 
     // list of files to exclude
