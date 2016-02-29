@@ -21,9 +21,6 @@ module.exports = function(config) {
         '**/*tests.js'
     ],
     
-    // Use the PhantomJS browser instead of Chrome
-    browsers: ['PhantomJS'],
-
 
     // list of files to exclude
     exclude: [
@@ -60,8 +57,8 @@ module.exports = function(config) {
 
 
     // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    // Use the PhantomJS browser instead of Chrome
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
