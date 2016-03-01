@@ -12,6 +12,6 @@ describe('Services', function(){
     }));
     // tests start here
     it('should return an array', function(){
-        expect(newArrayObj.sortArray([3, 1, 2]).toEqual([1, 2, 3]))
+        expect(newArrayObj.sortArray([1, 2, 3]).toEqual([1, 2, 3]))
     });
 });
