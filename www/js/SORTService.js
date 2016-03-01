@@ -14,6 +14,7 @@ angular.module('SORTServicesModule', [])
                     }
                 }
             } while (swapped);
+            return a;
         };
 
     });
