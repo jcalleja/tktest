@@ -12,6 +12,9 @@ describe('Services', function(){
     }));
     // tests start here
     it('should return an array', function(){
-        expect(newArrayObj.sortArray([1, 2, 3]).toEqual([1, 2, 3]))
+        var newArray =[1 ,2 ,3];
+        var sortedArray = [1, 2, 3];
+        var sorted = newArrayObj.sortArray(newArray);
+        expect(sortedArray).toEqual(sorted);
     });
 });
