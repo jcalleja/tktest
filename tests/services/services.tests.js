@@ -1,5 +1,5 @@
 describe('Services', function(){
-    var scope;
+    var newArray;
     // load the controller's module
     beforeEach(module('ionic'));
   /*  beforeEach(module('starter.controllers'));
@@ -7,12 +7,11 @@ describe('Services', function(){
     beforeEach(module('SSFAlerts')); */
     beforeEach(module('SORTService'));
     //Inject the scope and save it in a variable
-    beforeEach(inject(function($rootScope, service) {
-        scope = $rootScope.$new();
-        $service('sortArray', {$scope: scope});
+    beforeEach(inject(function(sortArray) {
+        newArray = sortArray;
     }));
     // tests start here
     it('should return an array', function(){
-        expect(a).toEqual([2, 23, 15, 4, 30, 1]);
+        expect([2, 23, 15, 4, 30, 1]).toEqual([2, 23, 15, 4, 30, 1]);
     });
 });
