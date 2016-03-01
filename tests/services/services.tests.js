@@ -12,7 +12,7 @@ describe('Services', function(){
     }));
     // tests start here
     it('should return an array', function(){
-        var newArray =[1 ,2 ,3];
+        var newArray =[3, 1, 2];
         var sortedArray = [1, 2, 3];
         var sorted = newArrayObj.sortArray(newArray);
         expect(sortedArray).toEqual(sorted);
