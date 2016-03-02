@@ -1,4 +1,4 @@
-<ion-view view-title="Menu">
+<ion-view view-title="{{ 'LOBBY.MENU' | translate }}">
     <ion-nav-buttons side="left">
         <button class="button" ng-click="logout()">
             <i class="icon ion-log-out light"></i>
@@ -6,10 +6,10 @@
     </ion-nav-buttons>
     <ion-content class="padding">
         <button class="button button-block button-positive" ng-click="takeTestButtonTapped()">
-            Take Test
+           {{ 'LOBBY.TAKE_TEST' | translate }}
         </button>
         <button class="button button-block button-positive" ui-sref="history">
-            My Results
+            {{ 'LOBBY.MY_RESULTS' | translate }}
         </button>
     </ion-content>
 </ion-view>

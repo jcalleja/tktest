@@ -1,0 +1,44 @@
+		"I miei risultati "
+        "Menu"
+        " Test"
+        
+        "T. K. Test"
+        "Accesso"
+        "Registro"
+        
+        "Menu"
+        "Disconnettersi"
+    	"Fare test"
+        "I miei risultati "
+    
+        "Accesso"
+        "Ricordati di me?"
+        "E-mail"
+        "Parola d'ordine"
+        
+        "Menu"
+    	" Opzione A "
+        " Opzione B "
+        "UN"
+        " B "
+        
+        "Registro"
+        "E-mail"
+        "Nome"
+        "Cognome"
+        "Compagnia (opzionale)"
+        "Parola d'ordine"
+        "Ripeti la password"
+        "Registrazione"
+    
+        "Menu"
+        "Risultati"
+        
+        "Errore"
+        " Qualcosa è andato storto , riprovare . " ,
+        " La connessione con il server non ha avuto successo , controllare la connessione a Internet e riprovare più tardi . "
+        "Nome utente o password errati."
+        " L'e-mail è già in uso . "
+        " Uno o più campi non sono validi "
+        "Impossibile effettuare il logout in questo momento , riprovare . "
+        "Le password devono essere identiche."

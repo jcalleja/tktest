@@ -3,9 +3,9 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TKServicesModule', 'chart.js', 'SSFAlerts'])
+angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TKServicesModule', 'chart.js', 'SSFAlerts', 'pascalprecht.translate', 'tmh.dynamicLocale'])
 
-.run(["$ionicPlatform", "$window", "$state", function($ionicPlatform, $window, $state) {
+.run(['$ionicPlatform', '$window', '$state', function($ionicPlatform, $window, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -26,7 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TK
   });
 }])
 
-.run(["$rootScope", "$ionicLoading", function($rootScope, $ionicLoading) {
+.run(['$rootScope', '$ionicLoading', function($rootScope, $ionicLoading) {
   $rootScope.$on('loading:show', function() {
     $ionicLoading.show({
       template: '<ion-spinner></ion-spinner>'
@@ -37,7 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TK
   });
 }])
 
-.run(["$rootScope", "$ionicHistory", "$state", "$window", function($rootScope, $ionicHistory, $state, $window) {
+.run(['$rootScope', '$ionicHistory', '$state', '$window', function($rootScope, $ionicHistory, $state, $window) {
   $rootScope.$on('request:auth', function() {
     $ionicHistory.nextViewOptions({
       historyRoot: true,
@@ -97,6 +97,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TK
       templateUrl: 'templates/history.html',
       controller: 'HistoryCtrl'
     });
+})
+
+.config(function($translateProvider) {
+  $translateProvider
+  //Load languages files from path
+    .registerAvailableLanguageKeys(['en', 'es'], {
+      'en_*': 'en',
+      'es_MX': 'es'
+    })
+    .useStaticFilesLoader({
+      prefix: 'languages/',
+      suffix: '.json'
+    })
+    .preferredLanguage('en')
+    .determinePreferredLanguage();
+})
+
+.config(function(tmhDynamicLocaleProvider) {
+  tmhDynamicLocaleProvider.localeLocationPattern("lib/angular-locale/angular-locale_{{locale}}.js");
 })
 
 .config(['$httpProvider', function($httpProvider) {

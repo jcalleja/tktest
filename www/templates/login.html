@@ -1,17 +1,17 @@
-<ion-view view-title="Login">
+<ion-view view-title="{{ 'LOGIN_PAGE.LOGIN_NAV' | translate }}">
   <ion-content class="padding">
     <form name="loginForm" novalidate ng-submit="loginSubmitForm(loginForm)">
       <div class="list list-inset">
         <label class="item item-input" ng-class="{ 'has-errors' : loginForm.email.$invalid && loginForm.$submitted}">
-          <input name="email" type="email" placeholder="Email" ng-model="user.email" required>
+          <input name="email" type="email" placeholder="{{ 'LOGIN_PAGE.PLACEHOLDER_EMAIL' | translate }}" ng-model="user.email" required>
         </label>
         <label class="item item-input" ng-class="{ 'has-errors' : loginForm.password.$invalid && loginForm.$submitted}">
-          <input name="password" type="password" placeholder="Password" ng-model="user.password" required>
+          <input name="password" type="password" placeholder="{{ 'LOGIN_PAGE.PLACEHOLDER_PASSWORD' | translate }}" ng-model="user.password" required>
         </label>
       </div>
-      <ion-checkbox ng-model="checkbox.rememberMe" class="no-border">Remember me?</ion-checkbox>
+      <ion-checkbox ng-model="checkbox.rememberMe" class="no-border">{{ "LOGIN_PAGE.REMEMBER" | translate }}</ion-checkbox>
       <button type="submit" class="button button-block button-positive">
-        Login
+        {{ "LOGIN_PAGE.LOGIN_BUTTON" | translate }}
       </button>
     </form>
   </ion-content>

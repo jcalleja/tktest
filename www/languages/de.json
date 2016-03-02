@@ -1,0 +1,44 @@
+		" Meine Ergebnisse "
+        "Menü"
+        "Test"
+        
+        " T. K. Test"
+        "Anmeldung"
+        "Neu registrieren"
+        
+        "Menü"
+        "Ausloggen"
+    	"Einen Test schreiben"
+        " Meine Ergebnisse "
+    
+        "Anmeldung"
+        "Erinnere dich an mich?"
+        "Email"
+        "Passwort"
+        
+        "Menü"
+    	"Option A"
+        "Option B "
+        "EIN"
+        "B"
+        
+        "Neu registrieren"
+        "Email"
+        "Vorname"
+        "Familienname, Nachname"
+        "Firma (optional)"
+        "Passwort"
+        "Passwort wiederholen"
+        "Anmelden"
+    
+        "Menü"
+        "Ergebnisse"
+        
+        "Fehler"
+        " Es ist ein Fehler , versuchen Sie es erneut . " ,
+        " Die Verbindung mit dem Server nicht erfolgreich war, überprüfen Sie Ihre Internetverbindung und versuchen Sie es später erneut. "
+        "Falscher Benutzername oder Passwort . "
+        " Die E-Mail ist bereits vergeben. "
+        " Ein oder mehrere Felder sind ungültig"
+        "Konnte nicht in diesem Moment abzumelden, versuchen Sie es erneut . "
+        "Die Passwörter müssen übereinstimmen."

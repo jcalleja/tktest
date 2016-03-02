@@ -1,11 +1,11 @@
-<ion-view view-title="Results">
+<ion-view view-title="{{ 'RESULTS.RESULTS' | translate }}">
     <ion-nav-buttons side="primary">
         <button class="button" ng-click="menuButtonTapped()" ng-show="shouldShowButton">
-            Menu
+            {{ "LOBBY.MENU" | translate }}
         </button>
     </ion-nav-buttons>
     <ion-content class="padding">
-        <h1>Results</h1>
-        <canvas id="bar" class="chart chart-bar" data="data" labels="labels" options="options" height="300" colours="colours"></canvas>
+        <h1>{{ "RESULTS.RESULTS" | translate }}</h1>
+        <canvas id="bar" class="chart chart-bar" data="data" labels="newLabels" options="options" height="300" colours="colours"></canvas>
     </ion-content>
 </ion-view>

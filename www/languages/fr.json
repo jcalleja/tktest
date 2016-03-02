@@ -1,0 +1,44 @@
+		"Mes résultats"
+        "Menu"
+        "Test"
+        
+        " T. K. Test"
+        "S'identifier"
+        "Registre"
+        
+        "Menu"
+        "Se déconnecter"
+    	"Passer un examen"
+        "Mes résultats"
+    
+        "S'identifier"
+        "Souviens-toi de moi?"
+        "Email"
+        "Mot de passe"
+        
+        "Menu"
+    	" Option A"
+        " Option B "
+        "UNE"
+        "B"
+        
+        "Registre"
+        "Email"
+        "Prénom"
+        "Nom de famille"
+        "Société (optionel)"
+        "Mot de passe"
+        "Répéter le mot de passe"
+        "S'inscrire"
+    
+        "Menu"
+        "Résultats"
+        
+        "Erreur"
+        " Quelque chose a mal tourné , essayez à nouveau. " ,
+        " La connexion avec le serveur a échoué , vérifiez votre connexion Internet et réessayer plus tard . "
+        "Identifiant ou mot de passe incorrect."
+        " Le courriel est déjà pris. "
+        " Un ou plusieurs champs ne sont pas valides "
+        "Impossible de se déconnecter à ce moment , essayer à nouveau . "
+        "Les mots de passe doivent correspondre."

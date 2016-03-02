@@ -1,0 +1,62 @@
+ {
+  "LANDING": {
+
+   "NAV_BAR_TITLE": "T.K. Test",
+   "LOGIN": "Login",
+   "REGISTER": "Register"
+  },
+  "LOBBY": {
+
+   "MENU": "Menu",
+   "TAKE_TEST": "Take Test",
+   "MY_RESULTS": "My Results"
+  },
+  "LOGIN_PAGE": {
+
+   "LOGIN_NAV": "Login",
+   "PLACEHOLDER_EMAIL": "Email",
+   "PLACEHOLDER_PASSWORD": "Password",
+   "REMEMBER": "Remember me?",
+   "LOGIN_BUTTON": "Login"
+  },
+  "HISTORY": {
+
+   "RESULTS": "My Results",
+   "TEST": "Test"
+  },
+  "REGISTER": {
+
+   "REGISTER_NAV": "Register",
+   "PLACEHOLDER_EMAIL": "Email",
+   "PLACEHOLDER_FIRSTNAME": "First Name",
+   "PLACEHOLDER_LASTNAME": "Last Name",
+   "PLACEHOLDER_COMPANY": "Company (Optional)",
+   "PLACEHOLDER_PASSWORD": "Password",
+   "PLACEHOLDER_REPEATPASSWORD": "Repeat Password",
+   "PLACEHOLDER_SIGNUP": "Sign up"
+  },
+  "RESULTS": {
+
+   "RESULTS": "Results",
+   "COMPETING": "Competing",
+   "COLLABORATING": "Collaborating",
+   "COMPROMISING": "Compromising",
+   "AVOIDING": "Avoiding",
+   "ACCOMMODATING": "Accommodating"
+  },
+  "ERROR": {
+
+   "ERROR": "Error",
+   "WARNING": "Warning",
+   "INCORRECT_USER_PASS": "Incorrect username or password",
+   "CONNECTION": "The connection with the server was unsuccessful. Check your internet connection and try again later.",
+   "SOMETHING": "Something went wrong, try again.",
+   "PASSNOMATCH": "Passwords must match",
+   "EMAIL": "Email has already been registered. Use a different email, or log in.",
+   "QUESTIONS": "The questions could not be retrieved at this time, do you want to try again?",
+   "LOGOUT": "Could not logout at this moment, try again.",
+   "SAVEQUESTION": "The questions could not be saved at the moment, do you want to try again?",
+   "TESTS": "The tests could not be retrieved at the moment. Do you want to try again?"
+  }
+
+ }

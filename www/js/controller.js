@@ -1,8 +1,9 @@
 angular.module('starter.controllers', [])
-    .controller('LoginCtrl', ['$scope', '$state', 'UserService', '$ionicHistory', '$window', 'SSFAlertsService',
-        function($scope, $state, UserService, $ionicHistory, $window, SSFAlertsService) {
+    .controller('LoginCtrl', ['$scope', '$state', 'UserService', '$ionicHistory', '$window', 'SSFAlertsService', '$translate', 'tmhDynamicLocale',
+        function($scope, $state, UserService, $ionicHistory, $window, SSFAlertsService, $translate, tmhDynamicLocale) {
             $scope.user = {};
             $scope.title = "Login";
+            tmhDynamicLocale.set("es");
 
             var rememberMeValue;
             if ($window.localStorage["rememberMe"] === undefined ||
@@ -46,21 +47,24 @@ angular.module('starter.controllers', [])
                                 $scope.user.password = "";
                                 form.$setPristine();
                             }
-                            else {
-                                // invalid response
-                                SSFAlertsService.showAlert("Error", "Something went wrong, try again.");
-                            }
-                        }, function(response) {
-                            // Code 401 corresponds to Unauthorized access, in this case, the email/password combination was incorrect.
-                            if (response.status === 401) {
-                                SSFAlertsService.showAlert("Error", "Incorrect username or password");
+                            else if (response.status === 401) {
+                                /*SSFAlertsService.showAlert("Error", "Incorrect username or password");*/
+                                $translate(['ERROR.ERROR', 'ERROR.INCORRECT_USER_PASS']).then(function(translation) {
+                                    SSFAlertsService.showAlert(translation['ERROR.ERROR'], translation['ERROR.INCORRECT_USER_PASS']);
+                                });
                             }
                             else if (response.data === null) {
                                 //If the data is null, it means there is no internet connection.
-                                SSFAlertsService.showAlert("Warning", "The connection with the server was unsuccessful, check your internet connection and try again later.");
+                                /*SSFAlertsService.showAlert("Warning", "The connection with the server was unsuccessful, check your internet connection and try again later.");*/
+                                $translate(['ERROR.WARNING', 'ERROR.CONNECTION']).then(function(translation) {
+                                    SSFAlertsService.showAlert(translation['ERROR.WARNING'], translation['ERROR.CONNECTION']);
+                                });
                             }
                             else {
-                                SSFAlertsService.showAlert("Error", "Something went wrong, try again.");
+                                /*SSFAlertsService.showAlert("Error", "Something went wrong, try again.");*/
+                                $translate(['ERROR.ERROR', 'ERROR.SOMETHING']).then(function(translation) {
+                                    SSFAlertsService.showAlert(translation['ERROR.ERROR'], translation['ERROR.SOMETHING']);
+                                });
                             }
                         });
                 }
@@ -68,8 +72,8 @@ angular.module('starter.controllers', [])
         }
     ])
 
-.controller('RegisterCtrl', ['$scope', '$state', 'UserService', '$ionicHistory', '$window', 'SSFAlertsService',
-    function($scope, $state, UserService, $ionicHistory, $window, SSFAlertsService) {
+.controller('RegisterCtrl', ['$scope', '$state', 'UserService', '$ionicHistory', '$window', 'SSFAlertsService', '$translate',
+    function($scope, $state, UserService, $ionicHistory, $window, SSFAlertsService, $translate) {
         $scope.user = {};
         $scope.repeatPassword = {};
 
@@ -85,7 +89,10 @@ angular.module('starter.controllers', [])
         $scope.registerSubmitForm = function(form) {
             if (form.$valid) {
                 if ($scope.user.password != $scope.repeatPassword.password) {
-                    SSFAlertsService.showAlert("Error", "Passwords must match");
+                    /* SSFAlertsService.showAlert("Error", "Passwords must match");*/
+                    $translate(['ERROR.ERROR', 'ERROR.PASSNOMATCH']).then(function(translation) {
+                        SSFAlertsService.showAlert(translation['ERROR.ERROR'], translation['ERROR.PASSNOMATCH']);
+                    });
                 }
                 else {
                     UserService.create($scope.user)
@@ -94,25 +101,31 @@ angular.module('starter.controllers', [])
                                 loginAfterRegister();
                                 form.$setPristine();
                             }
-                            else {
-                                // invalid response
-                                SSFAlertsService.showAlert("Error", "Something went wrong, try again.");
-                            }
-                        }, function(response) {
-                            // Code 401 corresponds to Unauthorized access, in this case, the email/password combination was incorrect.
-                            if (response.status === 401) {
-                                SSFAlertsService.showAlert("Error", "Incorrect username or password");
+                            else if (response.status === 401) {
+                                /*SSFAlertsService.showAlert("Error", "Incorrect username or password");*/
+                                $translate(['ERROR.ERROR', 'ERROR.INCORRECT_USER_PASS']).then(function(translation) {
+                                    SSFAlertsService.showAlert(translation['ERROR.ERROR'], translation['ERROR.INCORRECT_USER_PASS']);
+                                });
                             }
                             else if (response.status === 422) {
                                 // invalid sresponse
-                                SSFAlertsService.showAlert("Warning", "Email has already been registered. Use a different email, or log in.");
+                                /*SSFAlertsService.showAlert("Warning", "Email has already been registered. Use a different email, or log in.");*/
+                                $translate(['ERROR.WARNING', 'ERROR.EMAIL']).then(function(translation) {
+                                    SSFAlertsService.showAlert(translation['ERROR.WARNING'], translation['ERROR.EMAIL']);
+                                });
                             }
                             else if (response.data === null) {
                                 //If the data is null, it means there is no internet connection.
-                                SSFAlertsService.showAlert("Warning", "The connection with the server was unsuccessful, check your internet connection and try again later.");
+                                /*SSFAlertsService.showAlert("Warning", "The connection with the server was unsuccessful, check your internet connection and try again later.");*/
+                                $translate(['ERROR.WARNING', 'ERROR.CONNECTION']).then(function(translation) {
+                                    SSFAlertsService.showAlert(translation['ERROR.WARNING'], translation['ERROR.CONNECTION']);
+                                });
                             }
                             else {
-                                SSFAlertsService.showAlert("Warning", "Something went wrong, try again.");
+                                /*SSFAlertsService.showAlert("Warning", "Something went wrong, try again.");*/
+                                $translate(['ERROR.ERROR', 'ERROR.SOMETHING']).then(function(translation) {
+                                    SSFAlertsService.showAlert(translation['ERROR.ERROR'], translation['ERROR.SOMETHING']);
+                                });
                             }
                         });
                 }
@@ -148,8 +161,8 @@ angular.module('starter.controllers', [])
     }
 ])
 
-.controller('LobbyCtrl', ['$scope', '$state', '$ionicHistory', 'UserService', '$window', 'ServerQuestionService', 'TKQuestionsService', 'TKAnswersService', 'SSFAlertsService',
-    function($scope, $state, $ionicHistory, UserService, $window, ServerQuestionService, TKQuestionsService, TKAnswersService, SSFAlertsService) {
+.controller('LobbyCtrl', ['$scope', '$state', '$ionicHistory', 'UserService', '$window', 'ServerQuestionService', 'TKQuestionsService', 'TKAnswersService', 'SSFAlertsService', '$translate',
+    function($scope, $state, $ionicHistory, UserService, $window, ServerQuestionService, TKQuestionsService, TKAnswersService, SSFAlertsService, $translate) {
         //Get Questions Initially if they are not already stored
         TKAnswersService.resetAnswers();
 
@@ -175,7 +188,10 @@ angular.module('starter.controllers', [])
         }
 
         function confirmPrompt() {
-            SSFAlertsService.showConfirm("Warning", "The questions could not be retrieved at this time, do you want to try again?")
+            /*SSFAlertsService.showConfirm("Warning", "The questions could not be retrieved at this time, do you want to try again?")*/
+            $translate(['ERROR.WARNING', 'ERROR.QUESTIONS']).then(function(translation) {
+                    SSFAlertsService.showAlert(translation['ERROR.WARNING'], translation['ERROR.QUESTIONS']);
+                })
                 .then(function(response) {
                     if (response == true) {
                         getQuestions();
@@ -207,17 +223,18 @@ angular.module('starter.controllers', [])
                         $state.go('landing');
                     }
                     else {
-                        SSFAlertsService.showAlert("Warning", "Could not logout at this moment, try again.");
+                        /*SSFAlertsService.showAlert("Warning", "Could not logout at this moment, try again.");*/
+                        $translate(['ERROR.WARNING', 'ERROR.LOGOUT']).then(function(translation) {
+                            SSFAlertsService.showAlert(translation['ERROR.WARNING'], translation['ERROR.LOGOUT']);
+                        });
                     }
-                }, function(response) {
-                    SSFAlertsService.showAlert("Warning", "Could not logout at this moment, try again.");
                 });
         };
     }
 ])
 
-.controller('TestCtrl', ['$scope', 'testInfo', '$stateParams', '$state', '$window', 'TKQuestionsService', 'TKAnswersService', 'ServerAnswersService', '$ionicHistory', 'TKResultsButtonService', 'SSFAlertsService',
-    function($scope, testInfo, $stateParams, $state, $window, TKQuestionsService, TKAnswersService, ServerAnswersService, $ionicHistory, TKResultsButtonService, SSFAlertsService) {
+.controller('TestCtrl', ['$scope', 'testInfo', '$stateParams', '$state', '$window', 'TKQuestionsService', 'TKAnswersService', 'ServerAnswersService', '$ionicHistory', 'TKResultsButtonService', 'SSFAlertsService', '$translate',
+    function($scope, testInfo, $stateParams, $state, $window, TKQuestionsService, TKAnswersService, ServerAnswersService, $ionicHistory, TKResultsButtonService, SSFAlertsService, $translate) {
         //testInfo is passed in the router to obtain the questions
         var qNumber = $stateParams.testID;
         $scope.title = "Question #" + qNumber;
@@ -271,7 +288,10 @@ angular.module('starter.controllers', [])
         }
 
         function confirmPrompt() {
-            SSFAlertsService.showConfirm("Error", "The questions could not be saved at the moment, do you want to try again?")
+            /*SSFAlertsService.showConfirm("Error", "The questions could not be saved at the moment, do you want to try again?")*/
+            $translate(['ERROR.ERROR', 'ERROR.SAVEQUESTION']).then(function(translation) {
+                    SSFAlertsService.showAlert(translation['ERROR.ERROR'], translation['ERROR.SAVEQUESTION']);
+                })
                 .then(function(response) {
                     if (response == true) {
                         performRequest();
@@ -297,8 +317,8 @@ angular.module('starter.controllers', [])
     }
 ])
 
-.controller('ResultsCtrl', ['$scope', 'TKAnswersService', '$ionicHistory', '$state', 'TKResultsButtonService',
-    function($scope, TKAnswersService, $ionicHistory, $state, TKResultsButtonService) {
+.controller('ResultsCtrl', ['$scope', 'TKAnswersService', '$ionicHistory', '$state', 'TKResultsButtonService', '$translate',
+    function($scope, TKAnswersService, $ionicHistory, $state, TKResultsButtonService, $translate) {
         var answersInfo = TKAnswersService.getAnswers();
 
         function returnPercentage(value) {
@@ -321,13 +341,20 @@ angular.module('starter.controllers', [])
             ]
         ];
 
-        $scope.labels = [
+        /*$scope.labels = [
             "Competing",
             "Collaborating",
             "Compromising",
             "Avoiding",
             "Accommodating"
-        ];
+        ];*/
+        
+        $scope.labelTranslation = function(Competing, Collaborating, Compromising, Avoiding, Accommodating) {
+            $translate([Competing, Collaborating, Compromising, Avoiding, Accommodating]).then(function(x) {
+                   $scope.newLabels = [x[Competing], x[Collaborating], x[Compromising], x[Avoiding], x[Accommodating]];
+                })};
+        
+        $scope.labelTranslation('RESULTS.COMPETING', 'RESULTS.COLLABORATING', 'RESULTS.COMPROMISING', 'RESULTS.AVOIDING', 'RESULTS.ACCOMMODATING');
 
         $scope.options = {
             scaleIntegersOnly: true,
@@ -353,9 +380,9 @@ angular.module('starter.controllers', [])
     }
 ])
 
-.controller('HistoryCtrl', ['$scope', 'ServerAnswersService', '$window', '$state', 'TKAnswersService', 'TKResultsButtonService', 'SSFAlertsService',
+.controller('HistoryCtrl', ['$scope', 'ServerAnswersService', '$window', '$state', 'TKAnswersService', 'TKResultsButtonService', 'SSFAlertsService', '$translate',
 
-    function($scope, ServerAnswersService, $window, $state, TKAnswersService, TKResultsButtonService, SSFAlertsService) {
+    function($scope, ServerAnswersService, $window, $state, TKAnswersService, TKResultsButtonService, SSFAlertsService, $translate) {
         $scope.tests = [];
         performRequest();
         $scope.goToResult = function(test) {
@@ -391,7 +418,10 @@ angular.module('starter.controllers', [])
         }
 
         function confirmPrompt() {
-            SSFAlertsService.showConfirm("Warning", "The tests could not be retrieved at the momemt. Do you want to try again?")
+            /*SSFAlertsService.showConfirm("Warning", "The tests could not be retrieved at the moment. Do you want to try again?")*/
+            $translate(['ERROR.WARNING', 'ERROR.TESTS']).then(function(translation) {
+                    SSFAlertsService.showAlert(translation['ERROR.WARNING'], translation['ERROR.TESTS']);
+                })
                 .then(function(response) {
                     if (response == true) {
                         performRequest();
