@@ -4,7 +4,7 @@
             <ion-item ng-repeat="test in tests" ng-click="goToResult(test)">
                 {{ "HISTORY.TEST" | translate }} {{$index+1}}
                 <span class="item-note">
-                  {{test.createDate | date:'dd-MMM-yyyy hh:mm a'}}
+                  {{test.createDate | date:'dd-MMMM-yyyy hh:mm a'}}
                 </span>
             </ion-item>
         </ion-list>

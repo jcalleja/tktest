@@ -1,10 +1,8 @@
 angular.module('starter.controllers', [])
-    .controller('LoginCtrl', ['$scope', '$state', 'UserService', '$ionicHistory', '$window', 'SSFAlertsService', '$translate', 'tmhDynamicLocale',
-        function($scope, $state, UserService, $ionicHistory, $window, SSFAlertsService, $translate, tmhDynamicLocale) {
+    .controller('LoginCtrl', ['$scope', '$state', 'UserService', '$ionicHistory', '$window', 'SSFAlertsService', '$translate',
+        function($scope, $state, UserService, $ionicHistory, $window, SSFAlertsService, $translate) {
             $scope.user = {};
             $scope.title = "Login";
-            tmhDynamicLocale.set("es");
-
             var rememberMeValue;
             if ($window.localStorage["rememberMe"] === undefined ||
                 $window.localStorage["rememberMe"] == "true") {
@@ -165,7 +163,6 @@ angular.module('starter.controllers', [])
     function($scope, $state, $ionicHistory, UserService, $window, ServerQuestionService, TKQuestionsService, TKAnswersService, SSFAlertsService, $translate) {
         //Get Questions Initially if they are not already stored
         TKAnswersService.resetAnswers();
-
         if (TKQuestionsService.questionsLength() === 0) {
             getQuestions();
         }
@@ -348,12 +345,13 @@ angular.module('starter.controllers', [])
             "Avoiding",
             "Accommodating"
         ];*/
-        
+
         $scope.labelTranslation = function(Competing, Collaborating, Compromising, Avoiding, Accommodating) {
             $translate([Competing, Collaborating, Compromising, Avoiding, Accommodating]).then(function(x) {
-                   $scope.newLabels = [x[Competing], x[Collaborating], x[Compromising], x[Avoiding], x[Accommodating]];
-                })};
-        
+                $scope.newLabels = [x[Competing], x[Collaborating], x[Compromising], x[Avoiding], x[Accommodating]];
+            })
+        };
+
         $scope.labelTranslation('RESULTS.COMPETING', 'RESULTS.COLLABORATING', 'RESULTS.COMPROMISING', 'RESULTS.AVOIDING', 'RESULTS.ACCOMMODATING');
 
         $scope.options = {
@@ -380,11 +378,17 @@ angular.module('starter.controllers', [])
     }
 ])
 
-.controller('HistoryCtrl', ['$scope', 'ServerAnswersService', '$window', '$state', 'TKAnswersService', 'TKResultsButtonService', 'SSFAlertsService', '$translate',
-
-    function($scope, ServerAnswersService, $window, $state, TKAnswersService, TKResultsButtonService, SSFAlertsService, $translate) {
+.controller('HistoryCtrl', ['$scope', 'ServerAnswersService', '$window', '$state', 'TKAnswersService', 'TKResultsButtonService', 'SSFAlertsService', '$translate', 'tmhDynamicLocale',
+    function($scope, ServerAnswersService, $window, $state, TKAnswersService, TKResultsButtonService, SSFAlertsService, $translate, tmhDynamicLocale) {
         $scope.tests = [];
         performRequest();
+        
+        if(typeof navigator.globalization !== "undefined") {
+                navigator.globalization.getPreferredLanguage(function(language) {
+                    tmhDynamicLocale.set((language.value).split("-")[0]);
+                }, null);
+            }
+        
         $scope.goToResult = function(test) {
             var answers = {
                 "competing": test.competing,

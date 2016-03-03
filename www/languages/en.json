@@ -57,6 +57,11 @@
    "LOGOUT": "Could not logout at this moment, try again.",
    "SAVEQUESTION": "The questions could not be saved at the moment, do you want to try again?",
    "TESTS": "The tests could not be retrieved at the moment. Do you want to try again?"
+  },
+  "QUESTIONS": {
+
+   "OPTION_A": "Option A",
+   "OPTION_B": "Option B"
   }
 
  }

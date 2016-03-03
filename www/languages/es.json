@@ -1,61 +1,66 @@
  {
-     "LANDING": {
+  "LANDING": {
 
-         "NAV_BAR_TITLE": "T.K. Test",
-         "LOGIN": "Iniciar sesión",
-         "REGISTER": "Registro"
-     },
-     "LOBBY": {
+   "NAV_BAR_TITLE": "T.K. Test",
+   "LOGIN": "Iniciar sesión",
+   "REGISTER": "Registro"
+  },
+  "LOBBY": {
 
-         "MENU": "Menú",
-         "TAKE_TEST": "Realizar prueba",
-         "MY_RESULTS": "Mis resultados"
-     },
-     "LOGIN_PAGE": {
+   "MENU": "Menú",
+   "TAKE_TEST": "Realizar prueba",
+   "MY_RESULTS": "Mis resultados"
+  },
+  "LOGIN_PAGE": {
 
-         "LOGIN_NAV": "@:LANDING.LOGIN",
-         "PLACEHOLDER_EMAIL": "Correo Electrónico",
-         "PLACEHOLDER_PASSWORD": "Contraseña",
-         "REMEMBER": "¿Recuérdame?",
-         "LOGIN_BUTTON": "@:LANDING.LOGIN"
-     },
-     "HISTORY": {
+   "LOGIN_NAV": "@:LANDING.LOGIN",
+   "PLACEHOLDER_EMAIL": "Correo Electrónico",
+   "PLACEHOLDER_PASSWORD": "Contraseña",
+   "REMEMBER": "¿Recuérdame?",
+   "LOGIN_BUTTON": "@:LANDING.LOGIN"
+  },
+  "HISTORY": {
 
-         "RESULTS": "@:LOBBY.MY_RESULTS",
-         "TEST": "Prueba"
-     },
-     "REGISTER": {
+   "RESULTS": "@:LOBBY.MY_RESULTS",
+   "TEST": "Prueba"
+  },
+  "REGISTER": {
 
-         "REGISTER_NAV": "@:LANDING.REGISTER",
-         "PLACEHOLDER_EMAIL": "@LOGIN_PAGE.PLACEHOLDER_EMAIL",
-         "PLACEHOLDER_FIRSTNAME": "Nombre de pila",
-         "PLACEHOLDER_LASTNAME": "Apellido",
-         "PLACEHOLDER_COMPANY": "Empresa (Opcional)",
-         "PLACEHOLDER_PASSWORD": "@LOGIN_PAGE.PLACEHOLDER_PASSWORD",
-         "PLACEHOLDER_REPEATPASSWORD": "Repite la contraseña",
-         "PLACEHOLDER_SIGNUP": "Regístrate"
-     },
-     "RESULTS": {
+   "REGISTER_NAV": "@:LANDING.REGISTER",
+   "PLACEHOLDER_EMAIL": "@LOGIN_PAGE.PLACEHOLDER_EMAIL",
+   "PLACEHOLDER_FIRSTNAME": "Nombre de pila",
+   "PLACEHOLDER_LASTNAME": "Apellido",
+   "PLACEHOLDER_COMPANY": "Empresa (Opcional)",
+   "PLACEHOLDER_PASSWORD": "@LOGIN_PAGE.PLACEHOLDER_PASSWORD",
+   "PLACEHOLDER_REPEATPASSWORD": "Repite la contraseña",
+   "PLACEHOLDER_SIGNUP": "Regístrate"
+  },
+  "RESULTS": {
 
-         "RESULTS": "Resultados",
-         "COMPETING": "Compitiendo",
-         "COLLABORATING": "Colaborar",
-         "COMPROMISING": "Comprometer",
-         "AVOIDING": "Evitando",
-         "ACCOMMODATING": "Servicial"
-     },
-     "ERROR": {
+   "RESULTS": "Resultados",
+   "COMPETING": "Compitiendo",
+   "COLLABORATING": "Colaborar",
+   "COMPROMISING": "Comprometer",
+   "AVOIDING": "Evitando",
+   "ACCOMMODATING": "Servicial"
+  },
+  "ERROR": {
 
-         "ERROR": "Error",
-         "WARNING": "Advertencia",
-         "INCORRECT_USER_PASS": "Nombre de usuario o contraseña incorrecta",
-         "CONNECTION": "La conexión con el servidor no tuvo éxito . Compruebe su conexión a Internet y vuelve a intentarlo más tarde.",
-         "SOMETHING": "Algo salió mal , inténtelo de nuevo.",
-         "PASSNOMATCH": "Las contraseñas deben coincidir",
-         "EMAIL": "El correo electrónico ya ha sido registrada. Use un correo electrónico diferente, o conectarse.",
-         "QUESTIONS": "Las preguntas no pudieron ser recuperados en este momento. ¿Quieres intentarlo de nuevo?",
-         "LOGOUT": "No se pudo cerrar la sesión en este momento, inténtelo de nuevo .",
-         "SAVEQUESTION": "Las preguntas no podrían salvarse por el momento. ¿Quieres intentarlo de nuevo?",
-         "TESTS": "Las pruebas no pudieron ser recuperados por el momento . ¿Quieres intentarlo de nuevo?"
-     }
+   "ERROR": "Error",
+   "WARNING": "Advertencia",
+   "INCORRECT_USER_PASS": "Nombre de usuario o contraseña incorrecta",
+   "CONNECTION": "La conexión con el servidor no tuvo éxito . Compruebe su conexión a Internet y vuelve a intentarlo más tarde.",
+   "SOMETHING": "Algo salió mal , inténtelo de nuevo.",
+   "PASSNOMATCH": "Las contraseñas deben coincidir",
+   "EMAIL": "El correo electrónico ya ha sido registrada. Use un correo electrónico diferente, o conectarse.",
+   "QUESTIONS": "Las preguntas no pudieron ser recuperados en este momento. ¿Quieres intentarlo de nuevo?",
+   "LOGOUT": "No se pudo cerrar la sesión en este momento, inténtelo de nuevo .",
+   "SAVEQUESTION": "Las preguntas no podrían salvarse por el momento. ¿Quieres intentarlo de nuevo?",
+   "TESTS": "Las pruebas no pudieron ser recuperados por el momento . ¿Quieres intentarlo de nuevo?"
+  },
+  "QUESTIONS": {
+
+   "OPTION_A": "Opción A",
+   "OPTION_B": "Opción B"
+  }
  }
