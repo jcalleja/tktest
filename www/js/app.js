@@ -3,12 +3,35 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TKServicesModule', 'chart.js', 'SSFAlerts', 'pascalprecht.translate', 'tmh.dynamicLocale'])
+angular.module('starter', ['ionic', 'ionic.service.core', 'starter.controllers', 'RESTConnection', 'TKServicesModule', 'chart.js', 'SSFAlerts', 'pascalprecht.translate', 'tmh.dynamicLocale', 'ionic.service.analytics', ])
 
-.run(['$ionicPlatform', '$window', '$state', function($ionicPlatform, $window, $state) {
+.run(['$ionicPlatform', '$window', '$state', '$ionicAnalytics', function($ionicPlatform, $window, $state, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    var deploy = new Ionic.Deploy();
+    deploy.setChannel("dev");
+    deploy.check().then(function(hasUpdate) {
+      console.log('Ionic Deploy: Update available: ' + hasUpdate);
+      if (hasUpdate) {
+        //Perform update
+        deploy.update().then(function(res) {
+          //App will automatically reload when updated successfully
+          console.log('Ionic Deploy: Update Success! ', res);
+        }, function(err) {
+          console.log('Ionic Deploy: Update error! ', err);
+        }, function(prog) {
+          console.log('Ionic Deploy: Progress... ', prog);
+        });
+      }
+    }, function(err) {
+      console.error('Ionic Deploy: Unable to check for updates', err);
+    });
+
+
+    Ionic.io();
+    $ionicAnalytics.register();
+
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -117,6 +140,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'RESTConnection', 'TK
 .config(function(tmhDynamicLocaleProvider) {
   tmhDynamicLocaleProvider.localeLocationPattern("lib/angular-locale/angular-locale_{{locale}}.js");
 })
+
+.config(['$ionicAutoTrackProvider', function($ionicAutoTrackProvider) {
+  // Don't track which elements the user clicks on.
+  $ionicAutoTrackProvider.disableTracking('Tap');
+}])
 
 .config(['$httpProvider', function($httpProvider) {
   $httpProvider.interceptors.push(function($rootScope) {

@@ -4,6 +4,7 @@ angular.module('starter.controllers', [])
             $scope.user = {};
             $scope.title = "Login";
             var rememberMeValue;
+
             if ($window.localStorage["rememberMe"] === undefined ||
                 $window.localStorage["rememberMe"] == "true") {
                 rememberMeValue = true;
@@ -382,13 +383,13 @@ angular.module('starter.controllers', [])
     function($scope, ServerAnswersService, $window, $state, TKAnswersService, TKResultsButtonService, SSFAlertsService, $translate, tmhDynamicLocale) {
         $scope.tests = [];
         performRequest();
-        
-        if(typeof navigator.globalization !== "undefined") {
-                navigator.globalization.getPreferredLanguage(function(language) {
-                    tmhDynamicLocale.set((language.value).split("-")[0]);
-                }, null);
-            }
-        
+
+        if (typeof navigator.globalization !== "undefined") {
+            navigator.globalization.getPreferredLanguage(function(language) {
+                tmhDynamicLocale.set((language.value).split("-")[0]);
+            }, null);
+        }
+
         $scope.goToResult = function(test) {
             var answers = {
                 "competing": test.competing,
